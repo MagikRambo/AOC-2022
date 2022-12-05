@@ -1,52 +1,42 @@
 #AOC day 5
 import re
+import copy
 
 with open('./2022/day5/input.txt') as f:
     lines = f.read().strip().split('\n')
+def part1(crates : dict[int,list[str]], lines:list[str]):
 
-def part1(lines:list[str]):
-    s1 = ['H','R','B','D','Z','F','L','S']
-    s2 = ['T','B','M','Z','R']
-    s3 = ['Z','L','C', 'H', 'N', 'S']
-    s4 = ['S', 'C', 'F', 'J']
-    s5 = ['P', 'G', 'H', 'W', 'R', 'Z', 'B']
-    s6 = ['V','J','Z','G','D','N','M','T']
-    s7 = ['G','L','N','W','F','S','P','Q']
-    s8 = ['M','Z','R']
-    s9 = ['M','C','L','G','V','R','T']
-
-    sa = [s1,s2,s3,s4,s5,s6,s7,s8,s9]
-    lines = lines[10:]
     for l in lines:
         e = list(map(int, re.findall(r'\d+', l)))
         for _ in range(e[0]):
-            sa[e[2]-1].append(sa[e[1]-1].pop())
+            crates[e[2]].append(crates[e[1]].pop())
 
-    print(''.join(e.pop() for e in sa))
+    print(''.join(e.pop() for e in crates.values()))
 
-def part2(lines:list[str]):
-    s1 = ['H','R','B','D','Z','F','L','S']
-    s2 = ['T','B','M','Z','R']
-    s3 = ['Z','L','C', 'H', 'N', 'S']
-    s4 = ['S', 'C', 'F', 'J']
-    s5 = ['P', 'G', 'H', 'W', 'R', 'Z', 'B']
-    s6 = ['V','J','Z','G','D','N','M','T']
-    s7 = ['G','L','N','W','F','S','P','Q']
-    s8 = ['M','Z','R']
-    s9 = ['M','C','L','G','V','R','T']
-
-    sa = [s1,s2,s3,s4,s5,s6,s7,s8,s9]
-    lines = lines[10:]
+def part2(crates: dict[int,list[str]], lines:list[str]):
 
     for l in lines:
         e = list(map(int, re.findall(r'\d+', l)))
         ar = []
         for _ in range(e[0]):
-            if len(sa[e[1]-1]) > 0:
-                ar.append(sa[e[1]-1].pop())
-        sa[e[2]-1].extend(ar[::-1])
-    print(''.join(e.pop() for e in sa))
+            ar.append(crates[e[1]].pop())
+        crates[e[2]].extend(ar[::-1])
+    print(''.join(e.pop() for e in crates.values()))
 
-part1(lines)
-part2(lines)
+crates_1 = {
+    1: ['H','R','B','D','Z','F','L','S'],
+    2: ['T','B','M','Z','R'], 
+    3: ['Z','L','C', 'H', 'N', 'S'],
+    4: ['S', 'C', 'F', 'J'],
+    5: ['P', 'G', 'H', 'W', 'R', 'Z', 'B'],
+    6: ['V','J','Z','G','D','N','M','T'],
+    7: ['G','L','N','W','F','S','P','Q'],
+    8: ['M','Z','R'],
+    9: ['M','C','L','G','V','R','T']}
+
+lines_1 = copy.deepcopy(lines[10:])
+lines_2 = copy.deepcopy(lines_1)
+crates_2 = copy.deepcopy(crates_1)
+part1(crates_1, lines_1)
+part2(crates_2, lines_2)
 
