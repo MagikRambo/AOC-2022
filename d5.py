@@ -19,7 +19,7 @@ def part1(lines:list[str]):
     lines = lines[10:]
     for l in lines:
         e = list(map(int, re.findall(r'\d+', l)))
-        for i in range(e[0]):
+        for _ in range(e[0]):
             sa[e[2]-1].append(sa[e[1]-1].pop())
 
     print(''.join(e.pop() for e in sa))
@@ -41,7 +41,7 @@ def part2(lines:list[str]):
     for l in lines:
         e = list(map(int, re.findall(r'\d+', l)))
         ar = []
-        for i in range(e[0]):
+        for _ in range(e[0]):
             if len(sa[e[1]-1]) > 0:
                 ar.append(sa[e[1]-1].pop())
         sa[e[2]-1].extend(ar[::-1])
