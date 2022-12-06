@@ -4,9 +4,8 @@ with open('./2022/day6/input.txt') as f:
     lines = f.read().strip()
 
 def find_distinct(sw_size):
-    for i in range(len(lines)):
-        l = lines[i:i+sw_size]
-        if len(set(l)) == sw_size:
+    for i in range(len(lines)): 
+        if len(set(lines[i:i+sw_size])) == sw_size:
             return i+sw_size
 
 def part1():
